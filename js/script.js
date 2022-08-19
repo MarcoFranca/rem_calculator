@@ -1,17 +1,19 @@
-const p = document.querySelector('#calc')
+const div = document.querySelector('#calc')
 const form = document.querySelector('#form')
 const formNav = document.querySelector('#navigate')
 
 //*******variaveis********
 
-let num = "";
+let num = {
+    val:"",
+    px:16
+};
 
 //*****escutadores de eventos******
 formNav.addEventListener('click',(e)=>{
     e.preventDefault()
     if (e.target.id === "clear"){
-    clear()
-    }
+    clear()}
 })
 
 form.addEventListener('click',(e)=>{
@@ -22,18 +24,24 @@ form.addEventListener('click',(e)=>{
 
 
 function clear (){
-    num = "";
-    p.innerHTML = ""
+    num.val = "";
+    num.px = 16;
+    div.innerHTML = ""
 }
 
 function press(e) {
-    let val = e.target.innerHTML
-    if (val === "="){
-        p.innerHTML =""
-        let valPx = parseFloat(num) / 16;
-        p.append(String(`${valPx} rem`))
+    if (e.target.innerHTML === "="){
+        let valRem = parseFloat(num.val) / num.px;
+        let valEm = parseFloat(num.val) / num.px;
+        let valPoint = parseFloat(num.val) / 1.3333333333333333;
+        p.innerHTML = `${valRem} rem
+         \n ${valPoint} points`
+        num.val = "";
     }else{
-        num+=val
-        p.innerHTML = `${num} px`
+        num.val += e.target.innerHTML
+        p.innerHTML = `${num.val} px`
     }
+}
+
+function createTags() {
 }
